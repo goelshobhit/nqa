@@ -94,48 +94,10 @@ export default function Home() {
         <div style={playing ? { paddingBottom: 150 } : { paddingBottom: 50 }} className={classes.root}>
             <Container maxWidth="md">
                 <Grid container spacing={3}>
-                    <Grid item xs={12} md={4}>
-                        <Paper variant="outlined" className={classes.categoryContainer}>
-                            <Image className={classes.image} src={categoryDetails?.image} alt="cover_image" />
-                            <Box display="flex">
-                            
-                            <Box
-                                textAlign="center"
-                                className={classes.title}
-                                my={3}
-                                fontSize="h6.fontSize"
-                                fontWeight="fontWeightBold"
-                            >
-                                {categoryDetails?.name}
-                            </Box>
-                            {isFav ? (
-                            <IconButton onClick={() => {setIsFav(false);  removeEntry(categoryDetails) }}>
-                            <FavoriteRounded style={{ fill: 'red'}} />
-                            </IconButton> ):
-                            (
-                                <IconButton  onClick={() => {addEntry(categoryDetails); setIsFav(true)}}>
-                            <FavoriteBorderRounded  />
-                            </IconButton>
-                            ) }
-                            </Box>
-                        </Paper>
-                    </Grid>
                     <Grid item xs={12} md={8}>
-                        {audioList.map((item) => {
-                            return <ListItem currentPlayingPosition="category" key={item.id} data={item} />;
+                        {[...new Set(JSON.parse(localStorage.getItem("allEntries")))].map((item) => {
+                            return <ListItem currentPlayingPosition="category" key={item.id} data={item} notShowFavIcon />;
                         })}
-                        {showPagination && (
-                            <Box py={2} display="flex" justifyContent="flex-end">
-                                <Pagination
-                                    onChange={handleChangePage}
-                                    size={matches ? "small" : "large"}
-                                    page={currentPage}
-                                    count={totalPages}
-                                    variant="outlined"
-                                    shape="rounded"
-                                />
-                            </Box>
-                        )}
                     </Grid>
                 </Grid>
             </Container>

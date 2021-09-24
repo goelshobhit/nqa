@@ -6,7 +6,7 @@ import Catergory from "./containers/catergory";
 import Player from "./containers/player";
 import Layout from "./containers/layout";
 import Search from "./containers/search";
-
+import Favourite from "./containers/favourite";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -37,6 +37,9 @@ function App() {
                         </Route>
                         <Route exact path="/search">
                             <Search />
+                        </Route>
+                        <Route exact path="/favourite">
+                            <Favourite />
                         </Route>
                     </Switch>
                 </Layout>

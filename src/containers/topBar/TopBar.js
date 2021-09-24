@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -113,6 +114,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     width: 300,
   },
+  favMenu: {
+    color: "#fff",
+    textDecoration: 'none'
+  }
 }));
 
 export default function PrimarySearchAppBar() {
@@ -223,6 +228,9 @@ export default function PrimarySearchAppBar() {
             <IconButton aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit">
               <ArchiveIcon />
             </IconButton>
+            <Link to="/favourite" className={classes.favMenu}>
+          Favourites
+        </Link>
             <Menu
               id="menu-appbar"
               className={classes.rightMenu}
@@ -255,6 +263,7 @@ export default function PrimarySearchAppBar() {
         <Toolbar className={classes.toolbar2}>
           <DesktopDropdownMenu />
         </Toolbar>
+  
       </AppBar>
 
       <MobileDropdownMenu open={open} onSelect={handleOnSelect} />

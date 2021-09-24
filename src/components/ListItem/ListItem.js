@@ -10,6 +10,7 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import FavoriteBorderRounded from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteBorderTwoTone from "@material-ui/icons/FavoriteRounded";
 import parse from "html-react-parser"
+import { addEntry, removeEntry } from '../../helpers/add';
 
 import { Image } from "../../components";
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ListItem({ data, currentPlayingPosition }) {
+export default function ListItem({ data, currentPlayingPosition, notShowFavIcon }) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [isDownloaded, setIsDownloaded] = useState(false);
@@ -134,6 +135,34 @@ export default function ListItem({ data, currentPlayingPosition }) {
         //     // dispatch fav action.
         // }
     }
+
+    const renderIcons = () => {
+        if(!notShowFavIcon){
+            if(isFav) {
+                return (
+<IconButton size="small" onClick={() => {setIsFav(false); removeEntry(data) }}>
+                <FavoriteBorderTwoTone style={{
+                    color: "red",
+                }} 
+                />
+            </IconButton>
+                )
+            } 
+            if(!isFav){
+                return (
+                    <IconButton size="small" onClick={() => { setIsFav(true); addEntry(data)}}>
+            <FavoriteBorderRounded style={{
+                color: "grey",
+            }} 
+            />
+        </IconButton>
+                )
+            }
+            
+                }
+                return false;
+        }
+    
     return (
         <Paper variant="outlined" className={classes.mainContainer}>
             <Image src={image} className={classes.image} />
@@ -169,20 +198,7 @@ export default function ListItem({ data, currentPlayingPosition }) {
                     <IconButton disabled={downloadingIds.includes(id)} onClick={handleDownload} size="small">
                         <CheckCircleOutlineOutlined style={isDownloaded ? { color: "green" } : { color: "gray" }} />
                     </IconButton>
-                    { isFav ? 
-                    <IconButton size="small" onClick={() => setIsFav(false)}>
-                    <FavoriteBorderTwoTone style={{
-                        color: "red",
-                    }} 
-                    />
-                </IconButton> :
-                <IconButton size="small" onClick={() => setIsFav(true)}>
-                <FavoriteBorderRounded style={{
-                    color: "grey",
-                }} 
-                />
-            </IconButton>
-                    }
+                    {renderIcons()}
                     
                 </Box>
             </Box>
