@@ -15,7 +15,7 @@ import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
 import "./player.css";
 import { useHistory } from "react-router-dom";
 import * as offlineAPI from "../../db/services";
-import { addEntry, removeEntry } from '../../helpers/add';
+import { addEntry, removeEntry, isItemFav } from '../../helpers/add';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -179,7 +179,7 @@ export default function Player() {
                     </Box>
                     <Box display="flex">
 
-                    {isFav ?  (
+                    {isFav || isItemFav(id) ?  (
                         <IconButton size="small" onClick={handleFavButtonClick}>
                         <FavoriteRounded style={{
                             color:  "white",

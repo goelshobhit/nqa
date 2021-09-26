@@ -14,7 +14,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import { useData } from "../../hooks/useData";
 import { useParams } from "react-router-dom";
 import { getCategoryById } from "../../db/services";
-import { addEntry, removeEntry } from '../../helpers/add';
+import { addEntry, removeEntry, isItemFav } from '../../helpers/add';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -108,7 +108,7 @@ export default function Home() {
                             >
                                 {categoryDetails?.name}
                             </Box>
-                            {isFav ? (
+                            {isFav || isItemFav(categoryDetails?.id)? (
                             <IconButton onClick={() => {setIsFav(false);  removeEntry(categoryDetails) }}>
                             <FavoriteRounded style={{ fill: 'red'}} />
                             </IconButton> ):

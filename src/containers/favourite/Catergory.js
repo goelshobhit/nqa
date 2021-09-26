@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Box, Container, useMediaQuery, useTheme } from "@material-ui/core";
-import FavoriteBorderRounded from "@material-ui/icons/FavoriteBorderRounded";
-import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
-import { IconButton } from "@material-ui/core";
-import { Image, ListItem } from "../../components";
+import { Container, useMediaQuery, useTheme } from "@material-ui/core";
+import { ListItem } from "../../components";
 import { useSelector } from "react-redux";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
-import Pagination from "@material-ui/lab/Pagination";
 import { useData } from "../../hooks/useData";
 import { useParams } from "react-router-dom";
 import { getCategoryById } from "../../db/services";
-import { addEntry, removeEntry } from '../../helpers/add';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -96,7 +90,7 @@ export default function Home() {
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={8}>
                         {[...new Set(JSON.parse(localStorage.getItem("allEntries")))].map((item) => {
-                            return <ListItem currentPlayingPosition="category" key={item.id} data={item} notShowFavIcon />;
+                            return <ListItem currentPlayingPosition="category" key={item.id} data={item} />;
                         })}
                     </Grid>
                 </Grid>

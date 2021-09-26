@@ -10,7 +10,7 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import FavoriteBorderRounded from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteBorderTwoTone from "@material-ui/icons/FavoriteRounded";
 import parse from "html-react-parser"
-import { addEntry, removeEntry } from '../../helpers/add';
+import { addEntry, removeEntry, isItemFav } from '../../helpers/add';
 
 import { Image } from "../../components";
 const useStyles = makeStyles((theme) => ({
@@ -136,9 +136,10 @@ export default function ListItem({ data, currentPlayingPosition, notShowFavIcon 
         // }
     }
 
-    const renderIcons = () => {
+    const renderIcons = (id) => {
+        console.log(isItemFav(id));
         if(!notShowFavIcon){
-            if(isFav) {
+            if(isFav || isItemFav(id)) {
                 return (
 <IconButton size="small" onClick={() => {setIsFav(false); removeEntry(data) }}>
                 <FavoriteBorderTwoTone style={{
@@ -198,7 +199,7 @@ export default function ListItem({ data, currentPlayingPosition, notShowFavIcon 
                     <IconButton disabled={downloadingIds.includes(id)} onClick={handleDownload} size="small">
                         <CheckCircleOutlineOutlined style={isDownloaded ? { color: "green" } : { color: "gray" }} />
                     </IconButton>
-                    {renderIcons()}
+                    {renderIcons(id)}
                     
                 </Box>
             </Box>

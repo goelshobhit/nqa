@@ -7,6 +7,7 @@ export function addEntry(data) {
     // Save allEntries back to local storage
     existingEntries.push(entry);
     localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+    window.location.reload();
 };
 
 export function removeEntry(data) {
@@ -16,4 +17,11 @@ export function removeEntry(data) {
     existingEntries = existingEntries.filter((item) => item.id !== data.id);
 
     localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+    window.location.reload();
 };
+
+export function isItemFav(data) {
+    var existingEntries = JSON.parse(localStorage.getItem("allEntries")) || [];
+    const existingEntriesId = existingEntries.map(item => item.id);
+    return existingEntriesId.includes(data);
+}
